@@ -7,8 +7,8 @@ p.tooltip{
 	font-size:12px;
 	width:90%;
 	max-width:600px;
-	margin:20px auto;
-	color:#333;
+	margin:0px auto;
+	color:#444;
 }
 #calculator{
 	background:#f2f2f2;
@@ -43,20 +43,35 @@ p.tooltip{
 			text-align: center;
 			box-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
 			cursor:pointer;
-			color:#848484;
+			color:#666;
+			text-shadow:0 1px 1px rgba(0, 0, 0, 0.2);
+			border-radius:2px;
+			-moz-user-select: -moz-none;
+		   -khtml-user-select: none;
+		   -webkit-user-select: none;
+		   -ms-user-select: none;
+		   user-select: none;
 			&.large{
 				width:48%;
 			}
+			&.clear{
+				background:#d1dd8e;
+				&:active{
+					background:#eaf7a5;
+				}
+			}
 			&.number{
 				background:#FFF;
+				color:#848484;
 				&:active{
 					background:#EEE;
 				}
 			}
 			&.coma{
-				background:#d1dd8e;
+				background:#f2f2f2;
+				color:#848484;
 				&:active{
-					background:#eaf7a5;
+					background:#FFF;
 				}
 			}
 			&.func{

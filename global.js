@@ -9,10 +9,11 @@ var calculator = (function(){
     var $calculator
     , $visual
     , $keys
-    , $value
-    , $active
+    , value
+    , preValue
+    , active
+    , func
     , init = function(){
-
         $calculator = $('calculator');
         $visual = $('visual');
         $keys = $('keys');
@@ -20,50 +21,43 @@ var calculator = (function(){
         value = 0;
         preValue = 0;
         active = false;
-        //FUNC VALUES: sum, sub, mul, div, exp, non
         func = 'non';
         show(value);
-
-        //NUMBERS ONCLICK
-        for (i = 0; i < $numbers.length; i++) {
+        // NUMBERS.ONCLICK
+        for (var i = 0; i < $numbers.length; i++) {
             bindOnClick($numbers[i],function(){
                 numberAction(this.getAttribute('data-number'));
             });
         }
-        //AC
-        bindOnClick($('ac'),function(){
-            value = 0;
-            preValue = 0;
-            active = false;
-            func = 'non';
-            show(value);
-            $calculator.className = func;
-        });
-        // addition
+        // ASSIGN FUNCIONS
         bindOnClick($('sum'),function(){
             action('sum');
         });
-        // subtraction
         bindOnClick($('sub'),function(){
             action('sub');
         });
-        // multiplication
         bindOnClick($('mul'),function(){
             action('mul');
         });
-        // division
         bindOnClick($('div'),function(){
             action('div');
         });
-        // exponential
         bindOnClick($('exp'),function(){
             action('exp');
         });
-        // equal
+        //AC
+        bindOnClick($('ac'),function(){
+            ac();
+        });
+        // Equal
         bindOnClick($('eq'),function(){
             equal();
         });
-        //KEYPRESS
+        // Point
+        bindOnClick($('point'),function(){
+            point();
+        });
+        // KEYPRESS
         document.onkeypress = function(evt) {
             evt = evt || window.event;
             var charCode = evt.keyCode || evt.which;
@@ -78,35 +72,38 @@ var calculator = (function(){
                 action('sub');
             if(charStr == 'e')
                 action('exp');
+            if(charStr == 'a')
+                ac();
             if(charCode == 13)
                 equal();
             if(isNumeric(charStr))
                 numberAction(charStr);
         };
     }
-    // addition
+    // Addition
     , suma = function(){
         value = value+preValue;
     }
-    // subtraction
+    // Subtraction
     , resta = function(){
         if(preValue<0 && value<0)
-            value =  preValue+value;
+            value = preValue+value;
         else
-            value =  preValue-value;
+            value = preValue-value;
     }
-    // multiplication
+    // Multiplication
     , mult = function(){
         value = value*preValue;
     }
-    // division
+    // Division
     , divi = function(){
         value = preValue/value;
     }
-    // exponential
+    // Exponential
     , expo = function(){
         value = Math.pow(preValue, value);
     }
+    // Equal
     , equal = function(){
         resolve();
         func = 'non';
@@ -114,7 +111,21 @@ var calculator = (function(){
         show(value);
         $calculator.className = func;
     }
-    //RESOLVE
+    , ac = function(){
+        value = 0;
+        preValue = 0;
+        active = false;
+        func = 'non';
+        show(value);
+        $calculator.className = func;
+    }
+    , point = function(){
+        var str = value.toString();
+        if(str.indexOf('.') == -1)
+            value = value+'.';
+        show(value);
+    }
+    // RESOLVE
     , resolve = function(){
         switch (func) {
             case "sum":
@@ -135,51 +146,50 @@ var calculator = (function(){
             case "non":
                 break;
         }
+        value = parseFloat(value);
     }
-    //NUMERIC??
-    , isNumeric = function(num){
-        return !isNaN(num)
-    }
-    //SHOW
+    // SHOW
     , show = function(text){
         $visual.innerHTML = text;
     }
-    //FUNC ACTIONS
-    , action = function(f){
+    // FUNC ACTIONS
+    , action = function(fname){
         if(func != 'non')
             resolve();
-        func = f;
+        func = fname;
         preValue = value;
         show(value);
         active = true;
         $calculator.className = func;
     }
-    //NUMBER FUNC ACTION
+    // NUMBER FUNC ACTION
     , numberAction = function(number){
         if(active)
             value = 0;
             active = false;
-        value = parseInt( '' + value + number );
+        value = parseFloat( '' + value + '' + number );
         show(value);
     }
-    //SELECTOR
+    // NUMERIC??
+    , isNumeric = function(num){
+        return !isNaN(num)
+    }
+    // SELECTOR
     , $ = function(selector){
         return document.getElementById(selector);
     }
-    //BINDER
+    // BINDER
     , bindOnClick = function(element,clickHandler){
         if(element.addEventListener)
           element.addEventListener('click', clickHandler, false);
         else if(element.attachEvent)
-           element.attachEvent('onclick', function(){ return clickHandler.apply(element, [window.event])});
-    }
+           element.attachEvent('onclick', function(){ return clickHandler.apply(element, [window.event]); });
+    };
     return {'init': init};
 })();
 
-//WINDOW ONLOAD
+// WINDOW ONLOAD
 document.addEventListener("DOMContentLoaded", function(event) {
-
-    //INIT
+    // INIT
     calculator.init();
-
 });

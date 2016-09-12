@@ -14,8 +14,8 @@ p.tooltip {
   font-size: 12px;
   width: 90%;
   max-width: 600px;
-  margin: 20px auto;
-  color: #333; }
+  margin: 0px auto;
+  color: #444; }
 
 #calculator {
   background: #f2f2f2;
@@ -51,17 +51,30 @@ p.tooltip {
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    color: #848484; }
+    color: #666;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
     #calculator #keys li.large {
       width: 48%; }
+    #calculator #keys li.clear {
+      background: #d1dd8e; }
+      #calculator #keys li.clear:active {
+        background: #eaf7a5; }
     #calculator #keys li.number {
-      background: #FFF; }
+      background: #FFF;
+      color: #848484; }
       #calculator #keys li.number:active {
         background: #EEE; }
     #calculator #keys li.coma {
-      background: #d1dd8e; }
+      background: #f2f2f2;
+      color: #848484; }
       #calculator #keys li.coma:active {
-        background: #eaf7a5; }
+        background: #FFF; }
     #calculator #keys li.func {
       background: #8ecedd; }
       #calculator #keys li.func:active {
