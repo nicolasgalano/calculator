@@ -27,11 +27,7 @@ var calculator = (function(){
         //NUMBERS ONCLICK
         for (i = 0; i < $numbers.length; i++) {
             bindOnClick($numbers[i],function(){
-                if(active)
-                    value = 0;
-                    active = false;
-                value = parseInt( '' + value + this.getAttribute('data-number') );
-                show(value);
+                numberAction(this.getAttribute('data-number'));
             });
         }
         //AC
@@ -41,83 +37,82 @@ var calculator = (function(){
             active = false;
             func = 'non';
             show(value);
+            $calculator.className = func;
         });
-        //+
+        // addition
         bindOnClick($('sum'),function(){
-            if(func != 'non')
-                resolve();
-            func = 'sum';
-            preValue = value;
-            show(value);
-            active = true;
+            action('sum');
         });
-        //-
+        // subtraction
         bindOnClick($('sub'),function(){
-            if(func != 'non')
-                resolve();
-            func = 'sub';
-            preValue = value;
-            show(value);
-            active = true;
+            action('sub');
         });
-        //*
+        // multiplication
         bindOnClick($('mul'),function(){
-            if(func != 'non')
-                resolve();
-            func = 'mul';
-            preValue = value;
-            show(value);
-            active = true;
+            action('mul');
         });
-        // /
+        // division
         bindOnClick($('div'),function(){
-            if(func != 'non')
-                resolve();
-            func = 'div';
-            preValue = value;
-            show(value);
-            active = true;
+            action('div');
         });
         // exponential
         bindOnClick($('exp'),function(){
-            if(func != 'non')
-                resolve();
-            func = 'exp';
-            preValue = value;
-            show(value);
-            active = true;
+            action('exp');
         });
-        //=
+        // equal
         bindOnClick($('eq'),function(){
-            resolve();
-            func = 'non';
-            preValue = 0;
-            show(value);
+            equal();
         });
+        //KEYPRESS
+        document.onkeypress = function(evt) {
+            evt = evt || window.event;
+            var charCode = evt.keyCode || evt.which;
+            var charStr = String.fromCharCode(charCode);
+            if(charStr == '*')
+                action('mul');
+            if(charStr == '/')
+                action('div');
+            if(charStr == '+')
+                action('sum');
+            if(charStr == '-')
+                action('sub');
+            if(charStr == 'e')
+                action('exp');
+            if(charCode == 13)
+                equal();
+            if(isNumeric(charStr))
+                numberAction(charStr);
+        };
     }
-    //+
+    // addition
     , suma = function(){
         value = value+preValue;
     }
-    //-
+    // subtraction
     , resta = function(){
-        if(preValue<0 && value<0){
+        if(preValue<0 && value<0)
             value =  preValue+value;
-        }else{
+        else
             value =  preValue-value;
-        }
     }
-    //*
+    // multiplication
     , mult = function(){
         value = value*preValue;
     }
-    // /
+    // division
     , divi = function(){
         value = preValue/value;
     }
     // exponential
     , expo = function(){
         value = Math.pow(preValue, value);
+    }
+    , equal = function(){
+        resolve();
+        func = 'non';
+        preValue = 0;
+        show(value);
+        $calculator.className = func;
     }
     //RESOLVE
     , resolve = function(){
@@ -141,13 +136,37 @@ var calculator = (function(){
                 break;
         }
     }
+    //NUMERIC??
+    , isNumeric = function(num){
+        return !isNaN(num)
+    }
     //SHOW
     , show = function(text){
         $visual.innerHTML = text;
     }
+    //FUNC ACTIONS
+    , action = function(f){
+        if(func != 'non')
+            resolve();
+        func = f;
+        preValue = value;
+        show(value);
+        active = true;
+        $calculator.className = func;
+    }
+    //NUMBER FUNC ACTION
+    , numberAction = function(number){
+        if(active)
+            value = 0;
+            active = false;
+        value = parseInt( '' + value + number );
+        show(value);
+    }
+    //SELECTOR
     , $ = function(selector){
         return document.getElementById(selector);
     }
+    //BINDER
     , bindOnClick = function(element,clickHandler){
         if(element.addEventListener)
           element.addEventListener('click', clickHandler, false);
@@ -160,6 +179,7 @@ var calculator = (function(){
 //WINDOW ONLOAD
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    //INIT
     calculator.init();
 
 });

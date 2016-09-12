@@ -2,6 +2,14 @@
 body{
 	background:#aadd8e;
 }
+p.tooltip{
+	font-family: Tahoma, Arial;
+	font-size:12px;
+	width:90%;
+	max-width:600px;
+	margin:20px auto;
+	color:#333;
+}
 #calculator{
 	background:#f2f2f2;
 	font-family: Tahoma, Arial;
@@ -17,10 +25,13 @@ body{
 		height:60px;
 		line-height:60px;
 		text-align: center;
+		overflow:hidden;
+		font-size:40px;
 		background:#333;
 		color:#FFF;
 		margin:1% 1% 2%;
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 6px rgba(255, 255, 255, 0.6);
+		border:1px solid #666;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.5);
 	}
 	#keys{
 		li{
@@ -43,9 +54,9 @@ body{
 				}
 			}
 			&.coma{
-				background:#8eddc7;
+				background:#d1dd8e;
 				&:active{
-					background:#a4f7e0;
+					background:#eaf7a5;
 				}
 			}
 			&.func{
@@ -54,6 +65,17 @@ body{
 					background:#adefff;
 				}
 			}
+			&.equal{
+				background:#8eddc7;
+				&:active{
+					background:#a4f7e0;
+				}
+			}
 		}
 	}
+	&.sum #keys li#sum{opacity:0.5;}
+	&.sub #keys li#sub{opacity:0.5;}
+	&.div #keys li#div{opacity:0.5;}
+	&.mul #keys li#mul{opacity:0.5;}
+	&.exp #keys li#exp{opacity:0.5;}
 }

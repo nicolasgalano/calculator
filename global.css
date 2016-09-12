@@ -9,6 +9,14 @@
 body {
   background: #aadd8e; }
 
+p.tooltip {
+  font-family: Tahoma, Arial;
+  font-size: 12px;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  color: #333; }
+
 #calculator {
   background: #f2f2f2;
   font-family: Tahoma, Arial;
@@ -25,11 +33,14 @@ body {
     height: 60px;
     line-height: 60px;
     text-align: center;
+    overflow: hidden;
+    font-size: 40px;
     background: #333;
     color: #FFF;
     margin: 1% 1% 2%;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 6px rgba(255, 255, 255, 0.6);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 6px rgba(255, 255, 255, 0.6); }
+    border: 1px solid #666;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.5); }
   #calculator #keys li {
     float: left;
     width: 23%;
@@ -48,10 +59,24 @@ body {
       #calculator #keys li.number:active {
         background: #EEE; }
     #calculator #keys li.coma {
-      background: #8eddc7; }
+      background: #d1dd8e; }
       #calculator #keys li.coma:active {
-        background: #a4f7e0; }
+        background: #eaf7a5; }
     #calculator #keys li.func {
       background: #8ecedd; }
       #calculator #keys li.func:active {
         background: #adefff; }
+    #calculator #keys li.equal {
+      background: #8eddc7; }
+      #calculator #keys li.equal:active {
+        background: #a4f7e0; }
+  #calculator.sum #keys li#sum {
+    opacity: 0.5; }
+  #calculator.sub #keys li#sub {
+    opacity: 0.5; }
+  #calculator.div #keys li#div {
+    opacity: 0.5; }
+  #calculator.mul #keys li#mul {
+    opacity: 0.5; }
+  #calculator.exp #keys li#exp {
+    opacity: 0.5; }
