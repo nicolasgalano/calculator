@@ -14,6 +14,7 @@ var calculator = (function(){
     , active
     , func
     , init = function(){
+
         $calculator = $('calculator');
         $visual = $('visual');
         $keys = $('keys');
@@ -23,13 +24,14 @@ var calculator = (function(){
         active = false;
         func = 'non';
         show(value);
-        // NUMBERS.ONCLICK
+
+        // NUMBERS CLICK
         for (var i = 0; i < $numbers.length; i++) {
             bindOnClick($numbers[i],function(){
                 numberAction(this.getAttribute('data-number'));
             });
         }
-        // ASSIGN FUNCIONS
+        // ASSIGN CLICK FUNCIONALITIESS
         bindOnClick($('sum'),function(){
             action('sum');
         });
@@ -45,18 +47,16 @@ var calculator = (function(){
         bindOnClick($('exp'),function(){
             action('exp');
         });
-        //AC
         bindOnClick($('ac'),function(){
             ac();
         });
-        // Equal
         bindOnClick($('eq'),function(){
             equal();
         });
-        // Point
         bindOnClick($('point'),function(){
             point();
         });
+
         // KEYPRESS
         document.onkeypress = function(evt) {
             evt = evt || window.event;
@@ -74,11 +74,14 @@ var calculator = (function(){
                 action('exp');
             if(charStr == 'a')
                 ac();
+            if(charStr == '.')
+                point();
             if(charCode == 13)
                 equal();
             if(isNumeric(charStr))
                 numberAction(charStr);
         };
+
     }
     // Addition
     , suma = function(){
@@ -111,6 +114,7 @@ var calculator = (function(){
         show(value);
         $calculator.className = func;
     }
+    // Reset
     , ac = function(){
         value = 0;
         preValue = 0;
@@ -119,6 +123,7 @@ var calculator = (function(){
         show(value);
         $calculator.className = func;
     }
+    // Point
     , point = function(){
         var str = value.toString();
         if(str.indexOf('.') == -1)
